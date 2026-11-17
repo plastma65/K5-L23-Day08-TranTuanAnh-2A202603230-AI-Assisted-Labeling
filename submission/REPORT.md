@@ -1,4 +1,4 @@
-# Báo cáo Day 08 — <<MSHV - Họ và tên>>
+# Báo cáo Day 08 — 2A202603230 - Trần Tuấn Anh
 
 > Một file duy nhất cho cả bài (đã gộp recipe, QC và ghi chú cá nhân). Mọi con số kèm **mẫu số** và nguồn (file nào). Viết bằng lời của bạn.
 
@@ -69,9 +69,17 @@ Nếu Rework / Hold, việc cần làm tiếp: <<>>
 
 ## 8. Ghi chú cá nhân
 
+**Ca khó khi gán gold (Part 1, box tick `can_review`):**
+
+| Ảnh | Đối tượng | Vì sao không chắc | Liên quan guideline |
+|---|---|---|---|
+| img_001 | person #16 | Ảnh quá mờ, không nhận ra là 1 người hay 2 người; box vẫn cao ≥ 20 px nên vẫn phải gán | 4.1.6 chỉ nói kích thước, chưa nói vật mờ / không tách được cá thể |
+| img_001 | motorbike #9, #10 | 3 xe máy đỗ cùng một hàng, cùng một hướng; không rõ nên gán box như thế nào | Câu hỏi mở 2 (xe máy đỗ dày gần camera); 4.1.6 chỉ cho `ignore_region` khi ≥ 5 vật và < 20 px |
+
+
 - **Dùng AI để làm bài** (công cụ nào, việc gì, kiểm tra thế nào; "không dùng" nếu không): <<>>
 - Gold có bị nhiễm không (bạn có nhìn pre-label hay hỏi AI trước khi gán xong)? <<không / có, như sau: ...>>
-- Máy / GPU / CVAT dùng; vướng mắc cài đặt: <<>>
+- Máy / GPU / CVAT dùng; vướng mắc cài đặt: Windows 11, không GPU (torch CPU); CVAT v2.74.1 Docker (WSL). Lúc đầu container `traefik` bị tắt nên phải `docker compose up -d` lại. Lần đầu chạy SAM 3 (`sam3.pt`, Ultralytics) thì ultralytics tự cài thêm `timm` vào venv.
 - Dùng cache `data/cache/` thay vì tự chạy? <<không / có, vì ...>>
 - Lỗi / bug script đã gặp (nếu có): <<>>
 - Một điều bạn làm khác lần sau: <<>>
