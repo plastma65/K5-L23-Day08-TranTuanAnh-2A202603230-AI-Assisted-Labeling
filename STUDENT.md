@@ -1,13 +1,13 @@
 # Thông tin học viên
 
-- Họ và tên: <<>>
-- MSHV: <<>>
-- Lớp (L2 / L3 / khác): <<>>
-- Tài khoản GitHub: <<>>
-- Repo bài nộp (URL): <<>>
+- Họ và tên: Trần Tuấn Anh
+- MSHV: 2A202603230
+- Lớp (L2 / L3 / khác): L2
+- Tài khoản GitHub: plastma65
+- Repo bài nộp (URL): https://github.com/plastma65/K5-L23-Day08-TranTuanAnh-2A202603230-AI-Assisted-Labeling
 - Commit chốt bài (hash): <<>>
-- Máy: <<hệ điều hành, GPU (CUDA / MPS / không có)>>
-- CVAT (Docker): <<phiên bản, ví dụ v2.81.0>>
+- Máy: Windows 11, không có GPU (chạy CPU)
+- CVAT (Docker): v2.74.1
 
 ## Kết quả tóm tắt (điền cuối bài; số lấy từ `submission/qc/*`, kèm mẫu số)
 
