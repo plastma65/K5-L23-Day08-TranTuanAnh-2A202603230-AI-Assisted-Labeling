@@ -5,7 +5,7 @@
 - Lớp (L2 / L3 / khác): L2
 - Tài khoản GitHub: plastma65
 - Repo bài nộp (URL): https://github.com/plastma65/K5-L23-Day08-TranTuanAnh-2A202603230-AI-Assisted-Labeling
-- Commit chốt bài (hash): <<>>
+- Commit chốt bài (hash): 5b030c0
 - Máy: Windows 11, không có GPU (chạy CPU)
 - CVAT (Docker): v2.74.1
 
