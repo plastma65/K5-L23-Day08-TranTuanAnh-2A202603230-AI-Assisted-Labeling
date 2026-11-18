@@ -1,6 +1,8 @@
 image,object_id,error_type,reviewer,note
-img_003.jpg,,,,
-img_006.jpg,,,,
-img_014.jpg,,,,
-img_031.jpg,,,,
-img_035.jpg,,,,
+img_003.jpg,17,thua,Trần Tuấn Anh,"1 xe ba bánh có 3 box three_wheeler (mái, giữa, thân); box 17 (nửa trên) thừa"
+img_003.jpg,21,thua,Trần Tuấn Anh,"box 21 (nửa dưới) thừa, chồng lên cùng xe"
+img_003.jpg,18,sai_vi_tri_kich_thuoc,Trần Tuấn Anh,không box nào ôm đủ xe; giữ box 18 (lớn nhất) nhưng chưa ôm đủ
+img_006.jpg,,khong,Trần Tuấn Anh,"box #76 là car (màu cam), vật đúng là ô tô; ban đầu nhầm màu cam là three_wheeler"
+img_014.jpg,,khong,Trần Tuấn Anh,
+img_031.jpg,,khong,Trần Tuấn Anh,
+img_035.jpg,544,thua,Trần Tuấn Anh,"2 box three_wheeler 543 và 544 chồng dọc; ảnh mờ, không chắc box nào sai, ghi 1 lỗi thừa"

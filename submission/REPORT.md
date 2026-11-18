@@ -61,20 +61,20 @@
 
 ## 6. Calibration (Part 6)
 
-- Số quyết định: <<>> (`calibration_decisions.csv`); quan trọng nhất (dẫn `CAL-xx`): <<>>
-- Quy tắc mới đã vào `guideline_v1.1_calibrated.md`: <<>>
-- Nguyên nhân gốc: <<guideline mơ hồ / chưa nắm quy tắc / máy>>
+- Số quyết định: **5** (`calibration_decisions.csv`: 2 `cau_hoi_mo`, 1 `can_review`, 1 `loi_may`, 1 `bay_lot`). Quan trọng nhất: **CAL-05** (một vật một box) vì box `three_wheeler` chồng lên cùng một xe là lỗi lặp lớn nhất ở QC (3/4 lỗi là `thua`, img_003, img_035), và **CAL-03** (xe bán tải → `car`, quầy hàng → không gán) vì `three_wheeler` là lớp máy tệ nhất (xoá 18/43 box).
+- Quy tắc mới đã vào `guideline_v1.1_calibrated.md`: chốt câu hỏi mở 2 (hàng xe máy gần camera gán từng xe, CAL-01) và 6 (một vật một box, 4.1.8, CAL-05); 4.3 vật mờ không tách được → 1 box + `can_review` (CAL-02); "Không gồm" của `three_wheeler` thêm xe bán tải và quầy hàng (CAL-03); quy trình QC thêm bước ẩn nhãn máy, tự đếm vật (CAL-04). Câu hỏi mở 1, 3, 4, 5, 7 chưa chốt.
+- Nguyên nhân gốc: **guideline mơ hồ** ở CAL-01, CAL-02, CAL-05 (v1.0 chưa nói hàng xe gần camera, vật mờ không tách được, box chồng); **máy sai** ở CAL-03 (YOLOE gán nhầm; v1.0 đã nói xe bán tải là `car` nhưng cột "Không gồm" của `three_wheeler` chưa ghi rõ); **tôi sai** ở CAL-04 (bỏ bước quét ảnh nên lọt 3/3 bẫy missing) — ca này không đổi định nghĩa lớp, chỉ thêm bước quy trình. Lưu ý: CAL-05 tôi chỉ phát hiện ở bước QC; lúc calibration đầu tôi nhận định nhầm img_003 là 3 xe khác nhau, khi soi lại ảnh QC mới thấy là 1 xe có 3 box.
 
 ## 7. QC và quyết định (Part 6)
 
-- Mẫu: <<n>> ảnh (<<m>> ảnh `can_review` + <<k>> ngẫu nhiên, seed 42); người kiểm: bạn (**hạn chế**: bạn vừa là người duyệt).
-- Lỗi theo **đối tượng**: <<.../... = ...%>> · theo **ảnh**: <<.../... = ...%>> (ngưỡng Release ≤ 2%)
-- Top lỗi (trong: bỏ sót, thừa, sai lớp, sai vị trí/kích thước, sai thuộc tính, sai mask) + một ảnh ví dụ mỗi loại: <<>>
-- **Giới hạn mẫu nhỏ** (cận trên 95% trong `qc_report_auto.md`): <<>>
-- Script kiểm được / không kiểm được (ví dụ ôm sát, cùng bỏ sót với máy, theo checklist thật): <<>>
+- Mẫu: **5** ảnh (0 ảnh `can_review` — batch không có box nào tick `can_review` — + 5 ngẫu nhiên, seed 42): img_003, img_006, img_014, img_031, img_035; 108 đối tượng. Người kiểm: tôi (**hạn chế**: tôi vừa là người duyệt nên dễ bỏ qua đúng những lỗi mình đã bỏ qua).
+- Lỗi theo **đối tượng**: **4/108 = 3.7%** · theo **ảnh**: **2/5 = 40.0%** (ngưỡng Release ≤ 2%).
+- Top lỗi: **thừa 3/4** (img_003: 1 xe ba bánh có 3 box `three_wheeler` mái / giữa / thân, box 17 và 21 thừa; img_035: 2 box `three_wheeler` 543 và 544 chồng dọc, ảnh mờ không chắc box nào sai, ghi 544 thừa); **sai vị trí / kích thước 1/4** (img_003 box 18: không box nào ôm đủ xe). img_006, img_014, img_031 không lỗi (img_006 box #76 lúc đầu tôi tưởng là `three_wheeler` vì nhầm màu, thực ra là `car` và đúng). Lỗi `thua` lặp lại đều ở `three_wheeler` → lỗi hệ thống, cần sửa quy tắc (CAL-05), không chỉ sửa từng ảnh.
+- **Giới hạn mẫu nhỏ**: 2 ảnh lỗi / 5 ảnh mẫu → cận trên 95% (Wilson) của tỉ lệ ảnh lỗi thật là **77%**. Với 5 ảnh, kể cả 0 lỗi cũng không chứng minh được "dưới 2%" (quy tắc 3: 0/5 vẫn có thể tới ~3/5 = 60%). Ở đây số lỗi đã vượt ngưỡng nên kết luận "không đạt" chắc chắn hơn nhiều so với kết luận "đạt".
+- Script kiểm được: file hợp lệ, lớp đúng taxonomy, đủ 24 ảnh, accepted / edited / deleted / added, bẫy bắt được, tỉ lệ lỗi từ phiếu QC. **Không** kiểm được: box có ôm sát vật thật không (img_003 box 18), box chồng là 1 vật hay nhiều vật (img_003, img_035), vật mà cả tôi và máy cùng bỏ sót ngoài gold, và việc tôi có theo checklist thật (tôi bỏ bước quét ảnh sau vài ảnh đầu). Những việc đó cần mắt người.
 
-**Quyết định: <<Release / Hold / Rework>>**, ngày <<YYYY-MM-DD>>. Lý do (đi theo Hold → Rework → Release): <<>>
-Nếu Rework / Hold, việc cần làm tiếp: <<>>
+**Quyết định: Rework**, ngày 2026-11-18. Lý do (đi theo Hold → Rework → Release): **Hold?** Không — các lỗi gặp ở QC đã có quy tắc trong v1.1 (CAL-05 một vật một box, CAL-03 xe bán tải); 5 câu hỏi mở còn lại (1, 3, 4, 5, 7) không gây ra lỗi nào trong mẫu QC, dữ liệu không hỏng. **Rework?** Có — ảnh lỗi 2/5 = 40% > 2%, có lỗi lặp (`thua` 3/4 lỗi, đều là box `three_wheeler` chồng), và bắt bẫy 5/12 = 41.7% < 80% nên lô duyệt chưa đáng tin. Không Release vì không đạt cả ba điều kiện.
+Việc cần làm tiếp (Rework): (1) duyệt lại cả 24 ảnh theo checklist mới — ẩn nhãn máy, tự đếm vật ở mọi ảnh, chia ảnh dày thành 4 ô; (2) soi lại toàn bộ 27 box `three_wheeler`: gộp box chồng của cùng một xe thành một box ôm sát (CAL-05), đổi xe bán tải sang `car`, xoá quầy hàng (CAL-03); (3) export `submission/labels/qc_fixed.json`, chạy lại `build_release.py` và `qc_sample.py --force`, ghi vòng QC thứ hai vào báo cáo.
 
 ## 8. Ghi chú cá nhân
 
@@ -86,9 +86,9 @@ Nếu Rework / Hold, việc cần làm tiếp: <<>>
 | img_001 | motorbike #9, #10 | 3 xe máy đỗ cùng một hàng, cùng một hướng; không rõ nên gán box như thế nào | Câu hỏi mở 2 (xe máy đỗ dày gần camera); 4.1.6 chỉ cho `ignore_region` khi ≥ 5 vật và < 20 px |
 
 
-- **Dùng AI để làm bài** (công cụ nào, việc gì, kiểm tra thế nào; "không dùng" nếu không): <<>>
-- Gold có bị nhiễm không (bạn có nhìn pre-label hay hỏi AI trước khi gán xong)? <<không / có, như sau: ...>>
+- **Dùng AI để làm bài:** Claude Code (Claude, chạy trên máy tôi). Việc AI làm: cài môi trường và tải model; chạy các script (`prelabel`, `threshold_sweep`, `merge_prelabels`, `inject_traps`, `review_stats`, `sam2_points` với SAM 3, `build_release`, `qc_sample`, `qc_report`); giải nén file export CVAT và chạy `validate_labels`; giải thích guideline / rubric / cách dùng CVAT; liệt kê điểm `conf` của box máy theo ảnh (không đánh dấu bẫy); **soạn câu chữ** cho `model_log.csv`, REPORT, `calibration_decisions.csv` và guideline v1.1 **từ nhận xét tôi gửi và các đáp án tôi tự chọn** trong các câu hỏi trắc nghiệm AI đưa ra. AI **không** nhìn ảnh để gán nhãn, không duyệt hay QC thay tôi; gán gold, duyệt batch, soi ảnh `viz/`, xem mask và QC là tôi tự làm. Cách tôi kiểm tra: đọc lại từng câu trong file nộp, đối chiếu số liệu với `review_stats.md`, `threshold_sweep.md`, `qc_report_auto.md`. Một lần AI làm hỏng `model_log.csv` (dấu phẩy chưa bọc nháy) và đã dựng lại từ `work/runs.csv`. Ở bước QC tôi chọn Release trước, AI nhắc rubric và số liệu không đạt, tôi đổi sang Rework.
+- Gold có bị nhiễm không? **Không**: tôi gán tay 4 ảnh gold trước khi chạy bất kỳ model nào; AI không xem ảnh gold, chỉ trả lời câu hỏi về quy tắc guideline (vật cao 40 px có thuộc diện < 20 px không, người ngồi trong xe ba bánh có gán không). `traps_key.json` tôi chỉ xem sau khi export `batch_reviewed.json`.
 - Máy / GPU / CVAT dùng; vướng mắc cài đặt: Windows 11, không GPU (torch CPU); CVAT v2.74.1 Docker (WSL). Lúc đầu container `traefik` bị tắt nên phải `docker compose up -d` lại. Lần đầu chạy SAM 3 (`sam3.pt`, Ultralytics) thì ultralytics tự cài thêm `timm` vào venv.
-- Dùng cache `data/cache/` thay vì tự chạy? <<không / có, vì ...>>
-- Lỗi / bug script đã gặp (nếu có): <<>>
-- Một điều bạn làm khác lần sau: <<>>
+- Dùng cache `data/cache/` thay vì tự chạy? **Không**, tự chạy tất cả trên CPU.
+- Lỗi / bug script đã gặp: không sửa script nào. `sam2_points.py` không ghi vào `work/runs.csv`, nên dòng r07 (SAM 3) trong `model_log.csv` được ghi tay từ thời gian chạy thật.
+- Một điều bạn làm khác lần sau: ẩn nhãn máy và tự đếm vật ở **mọi** ảnh khi duyệt, không chỉ vài ảnh đầu (lần này bỏ bước này nên lọt 3/3 bẫy missing và để sót box `three_wheeler` chồng ở img_003).
